@@ -15,7 +15,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../services/geofence.dart';
 
 class HomePage extends StatefulWidget {
-  final FirebaseUser user;
+  final User user;
 
   HomePage({this.user});
 
@@ -58,9 +58,9 @@ class _HomePageState extends State<HomePage>
         case PermissionStatus.denied:
           print("DENIED");
           break;
-        case PermissionStatus.disabled:
-          // do something
-          break;
+        //case PermissionStatus.disabled:
+        // do something
+        //  break;
         case PermissionStatus.restricted:
           // do something
           break;
@@ -176,9 +176,9 @@ class _HomePageState extends State<HomePage>
     return new Scaffold(
         appBar: new AppBar(
           title: Padding(
-            padding: const EdgeInsets.only(left: 55.0),
+            padding: const EdgeInsets.only(left: 0.0),
             child: new Text(
-              "DASHBOARD",
+              "Dashboard",
               style: TextStyle(
                   fontSize: 25.0,
                   fontFamily: "Poppins-Medium",

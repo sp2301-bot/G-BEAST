@@ -14,7 +14,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class AttendanceRecorderWidget extends StatefulWidget {
-  final FirebaseUser user;
+  final User user;
 
   AttendanceRecorderWidget({this.user});
 
@@ -93,8 +93,8 @@ class AttendanceRecorderWidgetState extends State<AttendanceRecorderWidget> {
   }
 
   Widget googleMap(BuildContext context) {
-    double _initialLat = 30.677515;
-    double _initialLong = 76.743902;
+    double _initialLat = 27.2048;
+    double _initialLong = 77.4975;
     double _initialZoom = 15;
     return Container(
       height: MediaQuery.of(context).size.height,
@@ -173,11 +173,11 @@ class AttendanceRecorderWidgetState extends State<AttendanceRecorderWidget> {
             child: Container(
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.blueGrey,
+                color: Colors.lightGreen[100],
               ),
               child: Center(
                   child: Text(
-                "Kindly retry after some time!",
+                "Attendance recorded successfully",
                 style: TextStyle(color: Colors.white, fontSize: 22),
               )),
             ),
@@ -198,11 +198,11 @@ class AttendanceRecorderWidgetState extends State<AttendanceRecorderWidget> {
             child: Container(
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.blueGrey,
+                color: Colors.lightGreen[100],
               ),
               child: Center(
                   child: Text(
-                "Kindly retry after some time!",
+                "Attendance recorded successfully!",
                 style: TextStyle(color: Colors.white, fontSize: 22),
               )),
             ),
@@ -231,7 +231,8 @@ class AttendanceRecorderWidgetState extends State<AttendanceRecorderWidget> {
       bool serviceStatus = await _locationService.serviceEnabled();
       print("Service status: $serviceStatus");
       if (serviceStatus) {
-        _permission = await _locationService.requestPermission();
+        _permission = await _locationService.requestPermission() ==
+            PermissionStatus.GRANTED;
         print("Permission: $_permission");
         if (_permission) {
           location = await _locationService.getLocation();

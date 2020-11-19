@@ -7,7 +7,7 @@ import '../pages/attendance_summary.dart';
 import '../pages/leave_application.dart';
 import '../pages/leave_status.dart';
 
-void attendanceSummaryCallback(BuildContext context, FirebaseUser user) {
+void attendanceSummaryCallback(BuildContext context, User user) {
   Navigator.push(
     context,
     CupertinoPageRoute(
@@ -18,24 +18,24 @@ void attendanceSummaryCallback(BuildContext context, FirebaseUser user) {
   );
 }
 
-void attendanceRecorderCallback(BuildContext context, FirebaseUser user) {
+void attendanceRecorderCallback(BuildContext context, User user) {
   Navigator.push(
       context,
       CupertinoPageRoute(
           builder: (context) => AttendanceRecorderWidget(user: user)));
 }
 
-void leaveApplicationCallback(BuildContext context, FirebaseUser user) {
+void leaveApplicationCallback(BuildContext context, User user) {
   Navigator.push(
       context,
       CupertinoPageRoute(
           builder: (context) => LeaveApplicationWidget(
-                title: "Leave Application",
+                title: "Apply Leave",
                 user: user,
               )));
 }
 
-void leaveStatusCallback(BuildContext context, FirebaseUser user) {
+void leaveStatusCallback(BuildContext context, User user) {
   Navigator.push(
       context,
       CupertinoPageRoute(
@@ -48,7 +48,7 @@ void leaveStatusCallback(BuildContext context, FirebaseUser user) {
 List<List> infoAboutTiles = [
   [
     "assets/icons/attendance_recorder.png",
-    "Attendance Recorder",
+    "Mark attendance",
     "Mark your In and Out Time",
     attendanceRecorderCallback
   ],
@@ -60,13 +60,13 @@ List<List> infoAboutTiles = [
   ],
   [
     "assets/icons/leave_application.png",
-    "Leaves Application",
+    "Apply Leave",
     "Management",
     leaveApplicationCallback
   ],
   [
     "assets/icons/leave_status.png",
-    "Leaves Status",
+    "Leave Status",
     "Check pending status of leaves",
     leaveStatusCallback
   ],

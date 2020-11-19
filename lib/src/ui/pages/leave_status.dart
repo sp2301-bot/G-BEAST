@@ -10,7 +10,7 @@ import 'package:geo_attendance_system/src/ui/widgets/loader_dialog.dart';
 class LeaveStatusWidget extends StatefulWidget {
   LeaveStatusWidget({Key key, this.title, this.user}) : super(key: key);
   final String title;
-  final FirebaseUser user;
+  final User user;
   final FirebaseDatabase db = new FirebaseDatabase();
 
   @override
@@ -30,8 +30,8 @@ class LeaveStatusWidgetState extends State<LeaveStatusWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          title: Text('Leave Status'.toUpperCase()),
+          centerTitle: false,
+          title: Text('Leave Status'),
           backgroundColor: appbarcolor,
           leading: new IconButton(
             icon: new Icon(Icons.arrow_back_ios),
@@ -110,7 +110,7 @@ class LeaveStatusWidgetState extends State<LeaveStatusWidget> {
       height: 200,
       margin: const EdgeInsets.only(left: 45.0, right: 20.0),
       decoration: new BoxDecoration(
-        color: Color(0xFF8685E5),
+        color: Colors.blue,
         shape: BoxShape.rectangle,
         borderRadius: new BorderRadius.circular(8.0),
         boxShadow: <BoxShadow>[
@@ -154,7 +154,7 @@ class LeaveStatusWidgetState extends State<LeaveStatusWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.all(1.0),
                   child: new Icon(Icons.calendar_today,
                       size: 14.0, color: Color(0x66FFFFFF)),
                 ),
@@ -168,7 +168,7 @@ class LeaveStatusWidgetState extends State<LeaveStatusWidget> {
                       fontWeight: FontWeight.w300,
                       fontSize: 14.0),
                 ),
-                new Container(width: 70.0),
+                new Container(width: 30.0),
                 leave.status == LeaveStatus.approved ||
                         leave.status == LeaveStatus.rejected ||
                         leave.withdrawalStatus == true
@@ -176,20 +176,21 @@ class LeaveStatusWidgetState extends State<LeaveStatusWidget> {
                         height: 35,
                       )
                     : new RaisedButton(
-                        color: Colors.indigo,
+                        color: Colors.lightGreen,
                         shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(10.0),
+                          borderRadius: new BorderRadius.circular(15.0),
                         ),
                         onPressed: () async {
                           onLoadingDialog(context);
                           leaveDatabase
                               .withDrawLeave(leave.key, widget.user.uid)
                               .then((_) {
-                            Navigator.of(context,
-                                rootNavigator: true)
+                            Navigator.of(context, rootNavigator: true)
                                 .pop('dialog');
                           });
-                          Future.delayed(Duration(seconds: 1), (){setState(() {});});
+                          Future.delayed(Duration(seconds: 1), () {
+                            setState(() {});
+                          });
                         },
                         textColor: Color(0x66FFFFFF),
                         child: Padding(
@@ -198,9 +199,9 @@ class LeaveStatusWidgetState extends State<LeaveStatusWidget> {
                             new Icon(Icons.arrow_upward,
                                 size: 20.0, color: Color(0x66FFFFFF)),
                             new Text(
-                              'Withdraw',
+                              'Undo',
                               style: TextStyle(
-                                  color: Color(0x66FFFFFF),
+                                  color: Colors.white,
                                   fontFamily: 'poppins-medium',
                                   fontWeight: FontWeight.w600,
                                   fontSize: 10.0),

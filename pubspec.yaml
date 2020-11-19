@@ -14,11 +14,12 @@ description: Major Project
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ^2.3.5
 
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core : ^0.5.0
 
   cupertino_icons: ^0.1.2
   splashscreen: any
@@ -37,11 +38,10 @@ dependencies:
     git:
       url: https://github.com/derohimat/flutter_datetime_picker.git
   grouped_buttons: ^1.0.3
-  permission_handler: '^4.0.0'
+  permission_handler: "^4.0.0"
   device_info: ^0.4.1+2
   firebase_messaging: ^6.0.1
   flutter_local_notifications:
-
 
   geofencing:
     path: geofencing
@@ -51,7 +51,6 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
   uses-material-design: true
 
   assets:
@@ -64,9 +63,8 @@ flutter:
     - assets/back.jpg
     - assets/logo/logo-white.png
     - assets/logo/profile.jpg
-  
-  fonts:
 
+  fonts:
     - family: Poppins-Bold
       fonts:
         - asset: assets/fonts/Poppins-Bold.otf
@@ -83,5 +81,3 @@ flutter:
       fonts:
         - asset: assets/fonts/Bitter-Bold.ttf
         - asset: assets/fonts/Bitter-Regular.ttf
-
-

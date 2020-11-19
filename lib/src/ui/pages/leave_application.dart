@@ -12,7 +12,7 @@ import 'leave_status.dart';
 class LeaveApplicationWidget extends StatefulWidget {
   LeaveApplicationWidget({Key key, this.title, this.user}) : super(key: key);
   final String title;
-  final FirebaseUser user;
+  final User user;
   final FirebaseDatabase db = new FirebaseDatabase();
 
   @override
@@ -22,7 +22,7 @@ class LeaveApplicationWidget extends StatefulWidget {
 class LeaveApplicationWidgetState extends State<LeaveApplicationWidget>
     with SingleTickerProviderStateMixin {
   FirebaseDatabase db = FirebaseDatabase();
-  FirebaseUser _user;
+  User _user;
   DatabaseReference _userRef, _managerRef, _leaveRef;
   String _managerName, _managerDesignation;
 
@@ -229,8 +229,8 @@ class LeaveApplicationWidgetState extends State<LeaveApplicationWidget>
                                                   containerHeight: 250.0,
                                                 ),
                                                 showTitleActions: true,
-                                                minTime: DateTime(date.year,
-                                                    date.month, date.day),
+                                                minTime: DateTime(date.year-1,
+                                                    1 , 1),
                                                 maxTime: DateTime(2050, 12, 31),
                                                 onConfirm: (date) {
                                               print('confirm $date');
@@ -243,18 +243,17 @@ class LeaveApplicationWidgetState extends State<LeaveApplicationWidget>
                                                   setState(() {
                                                     int _difference = _toDateInt
                                                         .difference(
-                                                        _fromDateInt)
+                                                            _fromDateInt)
                                                         .inDays;
                                                     _difference += 1;
                                                     if (_difference <= 0)
                                                       leavesCount =
-                                                      "Invalid Dates";
+                                                          "Invalid Dates";
                                                     else
                                                       leavesCount = _difference
                                                           .toString();
                                                   });
                                                 }
-
                                               });
                                             },
                                                 currentTime: DateTime.now(),
@@ -278,7 +277,7 @@ class LeaveApplicationWidgetState extends State<LeaveApplicationWidget>
                                                             style: TextStyle(
                                                               color:
                                                                   dashBoardColor,
-                                                              fontSize: 16.0,
+                                                              fontSize: 12.0,
                                                             ),
                                                           ),
                                                         ],
@@ -306,8 +305,8 @@ class LeaveApplicationWidgetState extends State<LeaveApplicationWidget>
                                                   containerHeight: 250.0,
                                                 ),
                                                 showTitleActions: true,
-                                                minTime: DateTime(date.year,
-                                                    date.month, date.day),
+                                                minTime: DateTime(date.year-1,
+                                                    1, 1),
                                                 maxTime: DateTime(2022, 12, 31),
                                                 onConfirm: (date) {
                                               print('confirm $date');
@@ -353,7 +352,7 @@ class LeaveApplicationWidgetState extends State<LeaveApplicationWidget>
                                                             style: TextStyle(
                                                                 color:
                                                                     dashBoardColor,
-                                                                fontSize: 16.0),
+                                                                fontSize: 12.0),
                                                           ),
                                                         ],
                                                       ),
@@ -497,7 +496,7 @@ class LeaveApplicationWidgetState extends State<LeaveApplicationWidget>
 
   Future<void> pushData(BuildContext context) async {
     if (leaveIndex == 0) {
-//        _userRef.child(widget.user.uid).child("leaves").update({'ml': count});
+      //  _userRef.child(widget.user.uid).child("leaves").update({'ml': count});
       await _leaveRef.child(widget.user.uid).push().set({
         'fromDate': '$_fromdate',
         'toDate': '$_todate',
@@ -540,12 +539,16 @@ class LeaveApplicationWidgetState extends State<LeaveApplicationWidget>
         .child("leaves")
         .child(leaveKeys[leaveIndex])
         .once();
-//    print("Value" +  dataSnapshot.key.toString() + " " + dataSnapshot.value.toString());
-//    print(request);
     if (dataSnapshot.value < request) {
       return false;
-    } else
+    } else {
+      int count = dataSnapshot.value - request;
+      _userRef
+          .child(widget.user.uid)
+          .child("leaves")
+          .update({leaveKeys[leaveIndex]: count});
       return true;
+    }
   }
 
   bool _validateData(BuildContext context) {

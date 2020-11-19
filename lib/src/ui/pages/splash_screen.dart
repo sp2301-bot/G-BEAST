@@ -27,10 +27,8 @@ class _SplashScreenState extends State<SplashScreenWidget> {
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   String _userId = "";
 
-
   void initState() {
     super.initState();
-
 
     Timer(Duration(seconds: 3), () {
       widget.auth.getCurrentUser().then((user) {
@@ -59,8 +57,6 @@ class _SplashScreenState extends State<SplashScreenWidget> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,19 +69,13 @@ class _SplashScreenState extends State<SplashScreenWidget> {
           ),
         ),
         child: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Image.asset(
-              "assets/logo/logo-white.png",
-              height: 150,
+          child: Container(
+            padding: const EdgeInsets.only(top: 80),
+            child: SpinKitThreeBounce(
+              color: Colors.white,
+              size: 30.0,
             ),
-            Container(
-              padding: const EdgeInsets.only(top: 80),
-              child: SpinKitThreeBounce(
-                color: Colors.white,
-                size: 30.0,
-              ),
-            ),
-          ]),
+          ),
         ),
       ),
     );

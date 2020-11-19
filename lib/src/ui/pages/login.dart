@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
   String _username;
   String _password;
   String _errorMessage = "";
-  FirebaseUser _user;
+  User _user;
   bool formSubmit = false;
   Auth authObject;
 
@@ -74,7 +74,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  Future<List> checkForSingleSignOn(FirebaseUser _user) async {
+  Future<List> checkForSingleSignOn(User _user) async {
     DataSnapshot dataSnapshot = await _userRef.child(_user.uid).once();
 
     if (dataSnapshot != null) {
@@ -100,7 +100,7 @@ class _LoginState extends State<Login> {
         checkForSingleSignOn(_user).then((list) {
           Navigator.of(context).pop();
 
-          // Adding UUID to database
+          //Adding UUID to database
 
           if (list[0] == true && list[2] == false) {
             _userRef.child(_user.uid).update({"UUID": list[1]});
@@ -131,7 +131,7 @@ class _LoginState extends State<Login> {
       }
     } else {
       setState(() {
-        _errorMessage = "Invalid Login Details";
+        _errorMessage = "Invalid Login Credentials";
         _formKey.currentState.reset();
         Navigator.of(context).pop();
       });
@@ -176,16 +176,15 @@ class _LoginState extends State<Login> {
       resizeToAvoidBottomPadding: true,
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: new AssetImage(
-                'assets/back.jpg'),
-            fit: BoxFit.fill,
+          // image: DecorationImage(
+          //   image: new AssetImage('assets/back.jpg'),
+          //   fit: BoxFit.fill,
+          // ),
+          gradient: LinearGradient(
+            colors: <Color>[Colors.white, Colors.blueAccent[100]],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-//          gradient: LinearGradient(
-//            colors: <Color>[Colors.white, Colors.grey[350]],
-//            begin: Alignment.topCenter,
-//            end: Alignment.bottomCenter,
-//          ),
         ),
         child: Stack(
           fit: StackFit.expand,
@@ -211,11 +210,12 @@ class _LoginState extends State<Login> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                         Image.asset(
-                           "assets/logo/logo.png",
-                           width: ScreenUtil.getInstance().setWidth(220),
-                           height: ScreenUtil.getInstance().setHeight(220),
-                         ),
+                        Image.asset(
+                          "assets/logo/logo.png",
+                          width: ScreenUtil.getInstance().setWidth(220),
+                          height: ScreenUtil.getInstance().setHeight(220),
+                          
+                        ),
                         SizedBox(
                           width: ScreenUtil.getInstance().setWidth(40),
                         ),
@@ -225,21 +225,25 @@ class _LoginState extends State<Login> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Text("GeoFlix",
-                                  style: TextStyle(
-                                      fontFamily: "Poppins-Bold",
-                                      color: appbarcolor,
-                                      fontSize: ScreenUtil.getInstance().setSp(90),
-                                      letterSpacing: .6,
-                                      fontWeight: FontWeight.bold)),
-                              Text("Geo-Attendance and HR Management System",
+                              // Text("G-BEAST",
+                              //     style: TextStyle(
+                              //         fontFamily: "Poppins-Bold",
+                              //         color: appbarcolor,
+                              //         fontSize:
+                              //             ScreenUtil.getInstance().setSp(90),
+                              //         letterSpacing: .6,
+                              //         fontWeight: FontWeight.bold)),
+                              Center(
+                                
+                                child:Text("Geofencing Based- Employee Attendance System",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontFamily: "Poppins-Bold",
                                       color: Colors.black54,
-                                      fontSize: ScreenUtil.getInstance().setSp(25),
+                                      fontSize:
+                                          ScreenUtil.getInstance().setSp(25),
                                       letterSpacing: 0.2,
-                                      fontWeight: FontWeight.bold)),
+                                      fontWeight: FontWeight.bold))),
                             ],
                           ),
                         )
@@ -277,12 +281,12 @@ class _LoginState extends State<Login> {
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(colors: [
                                   splashScreenColorBottom,
-                                  Color(0xFF6078ea)
+                                  Color(0xFF42A5F5)
                                 ]),
                                 borderRadius: BorderRadius.circular(6.0),
                                 boxShadow: [
                                   BoxShadow(
-                                      color: Color(0xFF6078ea).withOpacity(.3),
+                                      color: Color(0xFF42A5F5).withOpacity(.3),
                                       offset: Offset(0.0, 8.0),
                                       blurRadius: 8.0)
                                 ]),
@@ -332,7 +336,7 @@ class _LoginState extends State<Login> {
                         ),
                         InkWell(
                           onTap: () {},
-                          child: Text("Contact Admin",
+                          child: Text("Contact Us",
                               style: TextStyle(
                                   color: splashScreenColorTop,
                                   fontFamily: "Poppins-Bold")),

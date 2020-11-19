@@ -22,7 +22,7 @@ class Leave {
       this.status,
       this.withdrawalStatus,
       this.message,
-        this.userUid
+        this.userUid, latitude, longitude, radius
       });
 
   factory Leave.fromJson(String key, Map<String, dynamic> parsedJson) {

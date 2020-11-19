@@ -13,24 +13,24 @@ class LeaveDatabase {
 
   LeaveDatabase._internal();
 
-//  Future<Leave> getLeavesBasedOnUID(String uid) async {
-//    DataSnapshot dataSnapshot = await _databaseReference.child("users").once();
-//    final userInfo = dataSnapshot.value[uid];
-//    final office = userInfo["allotted_office"];
-//
-//    dataSnapshot = await _databaseReference.child("location").once();
-//    final findOffice = dataSnapshot.value[office];
-//    final name = findOffice["name"];
-//    final latitude = findOffice["latitude"];
-//    final longitude = findOffice["longitude"];
-//    final radius = findOffice["radius"].toDouble();
-//    return Leave(
-//        key: office,
-//        name: name,
-//        latitude: latitude,
-//        longitude: longitude,
-//        radius: radius);
-//  }
+ Future<Leave> getLeavesBasedOnUID(String uid) async {
+   DataSnapshot dataSnapshot = await _databaseReference.child("users").once();
+   final userInfo = dataSnapshot.value[uid];
+   final office = userInfo["allotted_office"];
+
+   dataSnapshot = await _databaseReference.child("location").once();
+   final findOffice = dataSnapshot.value[office];
+   final name = findOffice["name"];
+   final latitude = findOffice["latitude"];
+   final longitude = findOffice["longitude"];
+   final radius = findOffice["radius"].toDouble();
+   return Leave(
+       key: office,
+       name: name,
+       latitude: latitude,
+       longitude: longitude,
+       radius: radius);
+ }
 
   Future<List<Leave>> getLeaveListBasedOnUID(String uid) async {
     DataSnapshot dataSnapshot =

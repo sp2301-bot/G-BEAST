@@ -20,7 +20,7 @@ class AttendanceSummary extends StatefulWidget {
   AttendanceSummary({Key key, this.title, this.user}) : super(key: key);
 
   final String title;
-  final FirebaseUser user;
+  final User user;
 
   @override
   _AttendanceSummaryState createState() => _AttendanceSummaryState();
